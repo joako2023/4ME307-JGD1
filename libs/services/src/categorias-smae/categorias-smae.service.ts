@@ -3,6 +3,7 @@ import { ServiceBase } from '@app/services/base/service.base';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CategoriasSmae } from '@app/dominio/entities/categorias-smae.entity';
+import { categoriasSmae } from "@app/dominio/constants";
 
 @Injectable()
 export class CategoriasSmaeService extends ServiceBase<CategoriasSmae> {
@@ -11,5 +12,6 @@ export class CategoriasSmaeService extends ServiceBase<CategoriasSmae> {
     protected repository: Repository<CategoriasSmae>,
   ) {
     super(repository);
+    repository.insert(categoriasSmae.map((i, j) => ({ id: j+1, nombre: i }))).then(() => console.log('categorias agregadas')).catch(() => console.log('categorias creadas'));
   }
 }
