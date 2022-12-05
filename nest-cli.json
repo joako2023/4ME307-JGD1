@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/sdnutricion-backend/src",
+  "monorepo": true,
+  "root": "apps/sdnutricion-backend",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/sdnutricion-backend/tsconfig.app.json"
+  },
+  "projects": {
+    "sdnutricion-backend": {
+      "type": "application",
+      "root": "apps/sdnutricion-backend",
+      "entryFile": "main",
+      "sourceRoot": "apps/sdnutricion-backend/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/sdnutricion-backend/tsconfig.app.json"
+      }
+    },
+    "chat": {
+      "type": "application",
+      "root": "apps/chat",
+      "entryFile": "main",
+      "sourceRoot": "apps/chat/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/chat/tsconfig.app.json"
+      }
+    },
+    "mails": {
+      "type": "application",
+      "root": "apps/mails",
+      "entryFile": "main",
+      "sourceRoot": "apps/mails/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/mails/tsconfig.app.json"
+      }
+    },
+    "planes-pagos": {
+      "type": "application",
+      "root": "apps/planes-pagos",
+      "entryFile": "main",
+      "sourceRoot": "apps/planes-pagos/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/planes-pagos/tsconfig.app.json"
+      }
+    },
+    "auth": {
+      "type": "application",
+      "root": "apps/auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
+      }
+    },
+    "nutriologos": {
+      "type": "application",
+      "root": "apps/nutriologos",
+      "entryFile": "main",
+      "sourceRoot": "apps/nutriologos/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/nutriologos/tsconfig.app.json"
+      }
+    },
+    "pacientes": {
+      "type": "application",
+      "root": "apps/pacientes",
+      "entryFile": "main",
+      "sourceRoot": "apps/pacientes/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/pacientes/tsconfig.app.json"
+      }
+    },
+    "dominio": {
+      "type": "library",
+      "root": "libs/dominio",
+      "entryFile": "index",
+      "sourceRoot": "libs/dominio/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dominio/tsconfig.lib.json"
+      }
+    },
+    "services": {
+      "type": "library",
+      "root": "libs/services",
+      "entryFile": "index",
+      "sourceRoot": "libs/services/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/services/tsconfig.lib.json"
+      }
+    },
+    "controller": {
+      "type": "library",
+      "root": "libs/controller",
+      "entryFile": "index",
+      "sourceRoot": "libs/controller/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/controller/tsconfig.lib.json"
+      }
+    }
+  }
+}
