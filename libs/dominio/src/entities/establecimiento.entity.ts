@@ -4,7 +4,7 @@ import { Nutriologo } from './nutriologo.entity';
 
 @Entity()
 export class Establecimiento extends isEntity {
-  @Column()
+  @Column({ unique: true })
   public nit_establecimiento: string;
 
   @Column()
