@@ -13,7 +13,7 @@ export class UserService extends ServiceBase<User> {
       .insert([
         {
           id: 1,
-          email: 'admin@clikgraphics.com',
+          email: 'admin@sd.com',
           password: bcrypt.hashSync('12345678', 10),
           username: 'Admin Clik',
           confirmed: true,
@@ -21,7 +21,7 @@ export class UserService extends ServiceBase<User> {
         },
         {
           id: 2,
-          email: 'nutriologo@clikgraphics.com',
+          email: 'nutriologo@sd.com',
           password: bcrypt.hashSync('12345678', 10),
           username: 'Nutriologo Clik',
           confirmed: true,
@@ -29,7 +29,7 @@ export class UserService extends ServiceBase<User> {
         },
         {
           id: 3,
-          email: 'paciente@clikgraphics.com',
+          email: 'paciente@sd.com',
           password: bcrypt.hashSync('12345678', 10),
           username: 'Paciente Clik',
           confirmed: true,
@@ -37,7 +37,7 @@ export class UserService extends ServiceBase<User> {
         },
         {
           id: 4,
-          email: 'colaborador@clikgraphics.com',
+          email: 'colaborador@sd.com',
           password: bcrypt.hashSync('12345678', 10),
           username: 'Colaborador Clik',
           confirmed: true,
