@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Nutriologo } from '@app/dominio/entities/nutriologo.entity';
 import { Establecimiento } from "@app/dominio/entities/establecimiento.entity";
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { NutriologoDto } from '@app/dominio/dtos/nutriologo.dto';
 
 @Injectable()
 export class NutriologoService extends ServiceBase<Nutriologo> {
@@ -18,4 +20,17 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
     data.establecimiento = await this.establecimientoRepository.save(data.establecimiento);
     return await this.repository.save(data);
   }
+
+  async actualizar(id: number | string, data: QueryDeepPartialEntity<NutriologoDto>) {
+    const old = await this.repository.findOne({
+      where: {
+        id: +id
+      }
+    });
+    if(data.imagen.length > 0) {
+      let imagen = old.imagen.split(',');
+      await this.deletePhoto([...imagen]);
+    }
+    return await this.repository.update(id, data);
+  }  
 }
