@@ -31,6 +31,10 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
       let imagen = old.imagen.split(',');
       await this.deletePhoto([...imagen]);
     }
+    if(data.establecimiento) {
+      data.establecimiento = await this.establecimientoRepository.save({ ...data.establecimiento });
+    }
+    console.log(old, data);
     return await this.repository.update(id, data);
   }  
 }

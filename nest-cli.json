@@ -98,6 +98,33 @@
       "compilerOptions": {
         "tsConfigPath": "libs/controller/tsconfig.lib.json"
       }
+    },
+    "pays": {
+      "type": "application",
+      "root": "apps/pays",
+      "entryFile": "main",
+      "sourceRoot": "apps/pays/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/pays/tsconfig.app.json"
+      }
+    },
+    "user-registrations": {
+      "type": "application",
+      "root": "apps/user-registrations",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-registrations/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-registrations/tsconfig.app.json"
+      }
+    },
+    "dates": {
+      "type": "application",
+      "root": "apps/dates",
+      "entryFile": "main",
+      "sourceRoot": "apps/dates/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/dates/tsconfig.app.json"
+      }
     }
   }
 }

@@ -17,6 +17,7 @@ import { TipoEstablecimientoController } from "./tipo-establecimiento/tipo-estab
 import { UserController } from "./user/user.controller";
 import { ServicesModule } from "@app/services";
 import { MulterModule } from "@nestjs/platform-express";
+import { UploadedsController } from './uploadeds/uploadeds.controller';
 
 @Module({
   imports: [
@@ -43,7 +44,8 @@ import { MulterModule } from "@nestjs/platform-express";
     ServiciosController,
     SuscripcionesController,
     TipoEstablecimientoController,
-    UserController
+    UserController,
+    UploadedsController
   ]
 })
 export class ControllersModule {

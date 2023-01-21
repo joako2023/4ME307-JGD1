@@ -50,7 +50,7 @@ export class Nutriologo extends isEntity {
   )
   public establecimiento: Establecimiento;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, i => i.nutriologo)
   @JoinColumn()
   usuario?: User;
 

@@ -84,7 +84,9 @@ export class NutriologoController extends ControllerBase<NutriologoDto> {
       photo?: Express.Multer.File[]
     },
   ) {
-    body.id = JSON.parse(body.id);
+    for(const datakey in body) {
+      body[datakey] = JSON.parse(body[datakey]);
+    }
     if (files.photo) {
       files.photo.forEach((i, index) => {
         body.imagen += i.filename + (files.photo.length === index + 1 ? '' : ',');
