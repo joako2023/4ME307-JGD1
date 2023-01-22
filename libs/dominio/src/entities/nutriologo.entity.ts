@@ -1,3 +1,4 @@
+import { dates } from 'apps/dates/src/entities/dates.entity';
 import {
   Column,
   Entity,
@@ -7,6 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { isEntity } from './base/isEntity';
+import { calendario } from './calendario.entity';
 import { Establecimiento } from './establecimiento.entity';
 import { Pacientes } from './pacientes.entity';
 import { Suscripciones } from './suscripciones.entity';
@@ -44,20 +46,30 @@ export class Nutriologo extends isEntity {
   @Column()
   public imagen: string;
 
+  @Column({ default: 0, nullable: true })
+  public score?: number;
+
   @ManyToOne(
     () => Establecimiento,
     (establecimiento) => establecimiento.nutriologos,
   )
   public establecimiento: Establecimiento;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, i => i.nutriologo)
   @JoinColumn()
   usuario?: User;
 
+  @OneToOne(() => calendario, i => i.nutriologo)
+  @JoinColumn()
+  calendario?: calendario;
+  
   @OneToOne(() => Suscripciones, (suscripciones) => suscripciones.nutriologo)
   @JoinColumn()
   suscripciones?: Suscripciones;
 
   @OneToMany(() => Pacientes, (t) => t.nutriologo)
   pacientes?: Pacientes[];
+  
+  @OneToMany(() => dates, i => i.medico)
+  citas: dates[];
 }

@@ -7,6 +7,8 @@ import { Suscripciones } from './suscripciones.entity';
 export class Plan extends isEntity {
   @Column()
   nombre: string;
+  @Column()
+  descripcion: string;
 
   @Column({ nullable: false, default: 1 })
   duracion?: number;

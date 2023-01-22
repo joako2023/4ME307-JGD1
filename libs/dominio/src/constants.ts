@@ -14,6 +14,8 @@ import { Plan } from '@app/dominio/entities/plan.entity';
 import { Servicios } from '@app/dominio/entities/servicios.entity';
 import { Suscripciones } from '@app/dominio/entities/suscripciones.entity';
 import { TipoEstablecimiento } from '@app/dominio/entities/tipo-establecimiento.entity';
+import { dates } from 'apps/dates/src/entities/dates.entity';
+import { calendario } from './entities/calendario.entity';
 export const entities = [
   Alimentos,
   AlimentosSugeridos,
@@ -31,6 +33,8 @@ export const entities = [
   Suscripciones,
   TipoEstablecimiento,
   User,
+  dates,
+  calendario
 ];
 
 export const VARCONNECTION = <any>{
@@ -41,7 +45,7 @@ export const VARCONNECTION = <any>{
   password: '',
   database: 'db_api_sd_test',
   entities: [...entities],
-  synchronize: false,
+  synchronize: true,
   logging: false,
 };
 export const categoriasSmae = [

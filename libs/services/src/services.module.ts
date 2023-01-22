@@ -17,6 +17,7 @@ import { PlanService } from './plan/plan.service';
 import { ServiciosService } from './servicios/servicios.service';
 import { SuscripcionesService } from './suscripciones/suscripciones.service';
 import { TipoEstablecimientoService } from './tipo-establecimiento/tipo-establecimiento.service';
+import { CalendarioService } from './calendario/calendario.service';
 
 const services = [
   UserService,
@@ -35,6 +36,7 @@ const services = [
   ServiciosService,
   SuscripcionesService,
   TipoEstablecimientoService,
+  CalendarioService
 ];
 @Module({
   imports: [TypeOrmModule.forFeature(entities)],

@@ -6,6 +6,8 @@ import { Servicios } from '@app/dominio/entities/servicios.entity';
 export class PlanDto extends Plan {
   @ApiProperty()
   nombre: string;
+  @ApiProperty()
+  descripcion: string;
 
   @ApiProperty()
   duracion?: number;
