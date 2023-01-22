@@ -18,6 +18,9 @@ import { UserController } from "./user/user.controller";
 import { ServicesModule } from "@app/services";
 import { MulterModule } from "@nestjs/platform-express";
 import { UploadedsController } from './uploadeds/uploadeds.controller';
+import { CitasController } from './citas/citas.controller';
+import { ClientsModule, Transport } from "@nestjs/microservices";
+import { CalendarioController } from './calendario/calendario.controller';
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { UploadedsController } from './uploadeds/uploadeds.controller';
         dest: "./uploads"
       })
     }),
+    ClientsModule.register([
+      {name: 'CITAS_SERVICE', transport: Transport.TCP }
+    ]),
     ServicesModule
   ],
   controllers: [
@@ -45,7 +51,9 @@ import { UploadedsController } from './uploadeds/uploadeds.controller';
     SuscripcionesController,
     TipoEstablecimientoController,
     UserController,
-    UploadedsController
+    UploadedsController,
+    CitasController,
+    CalendarioController
   ]
 })
 export class ControllersModule {

@@ -4,7 +4,6 @@ import { ControllersModule } from "./controllers/controllers.module";
 import { AuthModule } from "./auth/auth.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
-import { MulterModule } from "@nestjs/platform-express";
 
 @Module({
   imports: [

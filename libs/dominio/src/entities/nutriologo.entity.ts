@@ -8,6 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { isEntity } from './base/isEntity';
+import { calendario } from './calendario.entity';
 import { Establecimiento } from './establecimiento.entity';
 import { Pacientes } from './pacientes.entity';
 import { Suscripciones } from './suscripciones.entity';
@@ -58,6 +59,10 @@ export class Nutriologo extends isEntity {
   @JoinColumn()
   usuario?: User;
 
+  @OneToOne(() => calendario, i => i.nutriologo)
+  @JoinColumn()
+  calendario?: calendario;
+  
   @OneToOne(() => Suscripciones, (suscripciones) => suscripciones.nutriologo)
   @JoinColumn()
   suscripciones?: Suscripciones;
