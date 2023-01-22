@@ -1,4 +1,5 @@
-import { Entity, ManyToOne } from 'typeorm';
+import { dates } from 'apps/dates/src/entities/dates.entity';
+import { Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Nutriologo } from './nutriologo.entity';
 import { PacientesBase } from './pacientes.base';
 
@@ -7,4 +8,7 @@ import { PacientesBase } from './pacientes.base';
 export class Pacientes extends PacientesBase {
   @ManyToOne(() => Nutriologo, (t) => t.pacientes)
   nutriologo: Nutriologo;
+  
+  @OneToMany(() => dates, i => i.paciente)
+  citas: dates;
 }
