@@ -1,3 +1,4 @@
+import { dates } from 'apps/dates/src/entities/dates.entity';
 import {
   Column,
   Entity,
@@ -60,4 +61,7 @@ export class Nutriologo extends isEntity {
 
   @OneToMany(() => Pacientes, (t) => t.nutriologo)
   pacientes?: Pacientes[];
+  
+  @OneToMany(() => dates, i => i.medico)
+  citas: dates[];
 }
