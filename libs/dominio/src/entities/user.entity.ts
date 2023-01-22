@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToOne } from 'typeorm';
 import { isEntity } from './base/isEntity';
+import { Nutriologo } from './nutriologo.entity';
 
 @Entity()
 export class User extends isEntity {
@@ -20,4 +21,7 @@ export class User extends isEntity {
 
   @Column() // --> ROLES: ADMIN, NUTRIOLOGO, PACIENTE, COLABORADOR
   rol: string;
+
+  @OneToOne(() => Nutriologo, i => i.usuario)
+  nutriologo: Nutriologo;
 }

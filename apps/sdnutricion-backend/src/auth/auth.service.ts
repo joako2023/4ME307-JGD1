@@ -10,8 +10,11 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.userService.obtener({
-      email: email,
+    const user = await this.userService.getRepo().findOne({
+      relations: ['nutriologo', 'nutriologo.suscripciones', 'nutriologo.establecimiento'],
+      where: {
+        email: email,
+      }
     });
     if (!user) return null;
     const result = await bcrypt.compare(pass, user.password);

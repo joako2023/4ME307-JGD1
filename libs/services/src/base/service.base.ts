@@ -5,6 +5,7 @@ import {
   Repository,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import * as fs from 'fs';
 
 export class ServiceBase<T> {
   constructor(protected repository: Repository<T>) {}
@@ -34,5 +35,18 @@ export class ServiceBase<T> {
 
   getRepo() {
     return this.repository;
+  }
+
+  async deletePhoto(image: string[] ) {
+    try {
+      image.forEach(element => {
+        fs.unlinkSync('./uploads/' + element);
+      });
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        return true
+      }
+
+    }
   }
 }
