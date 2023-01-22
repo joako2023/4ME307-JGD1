@@ -45,6 +45,9 @@ export class Nutriologo extends isEntity {
   @Column()
   public imagen: string;
 
+  @Column({ default: 0, nullable: true })
+  public score?: number;
+
   @ManyToOne(
     () => Establecimiento,
     (establecimiento) => establecimiento.nutriologos,

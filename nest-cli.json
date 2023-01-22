@@ -125,6 +125,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/dates/tsconfig.app.json"
       }
+    },
+    "crons": {
+      "type": "application",
+      "root": "apps/crons",
+      "entryFile": "main",
+      "sourceRoot": "apps/crons/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/crons/tsconfig.app.json"
+      }
     }
   }
 }

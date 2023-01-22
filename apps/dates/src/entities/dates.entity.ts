@@ -1,7 +1,8 @@
 import { Nutriologo } from "@app/dominio/entities/nutriologo.entity";
 import { Pacientes } from "@app/dominio/entities/pacientes.entity";
-import { Column, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class dates {
     @PrimaryGeneratedColumn()
     id?: number;
@@ -17,6 +18,9 @@ export class dates {
 
     @Column({ nullable: true })
     year: string;
+
+    @Column({ default: 'AGENDADO' }) // CANCELADO - CONFIRMADO
+    state: string;
 
     @ManyToOne(() => Nutriologo, i => i.citas)
     medico: Nutriologo;
