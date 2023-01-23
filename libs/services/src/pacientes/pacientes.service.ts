@@ -10,5 +10,16 @@ export class PacientesService extends ServiceBase<Pacientes> {
     @InjectRepository(Pacientes) protected repository: Repository<Pacientes>,
   ) {
     super(repository);
+    repository.save({
+      id: 1,
+      active: false,
+      datos_personales: JSON.stringify({
+        nombre: 'daniel',
+        apellidos: 'dasda'
+      }),
+      usuario: {
+        id: 3
+      }
+    }).then((resp) => console.log('paciente de prueba creado')).catch((err) => console.log('paciente de prueba listo'));
   }
 }

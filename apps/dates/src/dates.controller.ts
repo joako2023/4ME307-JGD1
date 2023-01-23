@@ -9,6 +9,16 @@ export class DatesController {
 
   @MessagePattern({ dates: 'guardar' })
   async agendarCita(data: dates) {
-    return await this.datesService.save(data);
+    try {
+      return await this.datesService.save(data);
+    } catch (error) {
+      return { error: error.message };
+      
+    }
+  }
+
+  @MessagePattern({ dates: 'citas-medico' })
+  async consultarCitasMedico(data: any) {
+    return await this.datesService.consultarCitasMedico(data.id);
   }
 }

@@ -4,31 +4,31 @@ import { User } from '@app/dominio/entities/user.entity';
 
 export class PacientesBase extends isEntity {
   @Column({ type: 'text', nullable: true })
-  public datos_personales: object;
+  public datos_personales: string;
 
   @Column({ type: 'text', nullable: true })
-  public datos_socio_economicos: object;
+  public datos_socio_economicos: string;
 
   @Column({ type: 'text', nullable: true })
-  public antecedentes: object;
+  public antecedentes: string;
 
   @Column({ type: 'text', nullable: true })
-  public antecedentes_edad: object;
+  public antecedentes_edad: string;
 
   @Column({ type: 'text', nullable: true })
-  public historial_alimentario: object;
+  public historial_alimentario: string;
 
   @Column({ type: 'text', nullable: true })
-  public recordatorio: object;
+  public recordatorio: string;
 
   @Column({ type: 'text', nullable: true })
-  public frecuencia_alimentos: object;
+  public frecuencia_alimentos: string;
 
   @Column({ type: 'text', nullable: true })
-  public antropometria: object;
+  public antropometria: string;
 
   @Column({ type: 'text', nullable: true })
-  public evaluacion_bioquimica: object;
+  public evaluacion_bioquimica: string;
 
   @Column({ nullable: true })
   public nacimiento: Date;

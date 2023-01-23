@@ -23,6 +23,7 @@ export class NutriologoController extends ControllerBase<NutriologoDto> {
       'suscripciones',
       'usuario',
       'pacientes',
+      'calendario'
     ]);
   }
 

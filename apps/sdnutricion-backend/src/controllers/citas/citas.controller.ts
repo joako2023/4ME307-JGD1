@@ -1,4 +1,5 @@
 import { Controller, Inject, Post, Body} from '@nestjs/common';
+import { Get, Param } from '@nestjs/common/decorators';
 import { ClientProxy } from '@nestjs/microservices';
 import { timeout } from 'rxjs';
 
@@ -11,5 +12,10 @@ export class CitasController {
     @Post()
     guardar(@Body() data: any) {
         return this.clientCitasProxy.send({ dates: 'guardar' }, data).pipe(timeout(10000));
+    }
+
+    @Get('medico/:id')
+    consultarCitas(@Param('id') id: number) {
+        return this.clientCitasProxy.send({ dates: 'citas-medico' }, { id }).pipe(timeout(10000));
     }
 }

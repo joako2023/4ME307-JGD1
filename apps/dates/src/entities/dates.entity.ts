@@ -19,7 +19,7 @@ export class dates {
     @Column({ nullable: true })
     year: string;
 
-    @Column({ default: 'AGENDADO' }) // CANCELADO - CONFIRMADO
+    @Column({ default: 'AGENDADO' }) // CANCELADO - CONFIRMADO - TERMINADO
     state: string;
 
     @ManyToOne(() => Nutriologo, i => i.citas)
