@@ -21,6 +21,7 @@ import { UploadedsController } from './uploadeds/uploadeds.controller';
 import { CitasController } from './citas/citas.controller';
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { CalendarioController } from './calendario/calendario.controller';
+import { MailsController } from './mails/mails.controller';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { CalendarioController } from './calendario/calendario.controller';
       })
     }),
     ClientsModule.register([
-      {name: 'CITAS_SERVICE', transport: Transport.TCP }
+      {name: 'CITAS_SERVICE', transport: Transport.TCP },
+      {name: 'MAILS_SERVICE', transport: Transport.TCP }
     ]),
     ServicesModule
   ],
@@ -53,7 +55,8 @@ import { CalendarioController } from './calendario/calendario.controller';
     UserController,
     UploadedsController,
     CitasController,
-    CalendarioController
+    CalendarioController,
+    MailsController
   ]
 })
 export class ControllersModule {

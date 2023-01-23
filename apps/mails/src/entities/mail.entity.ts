@@ -1,7 +1,9 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class mails {
+    @PrimaryGeneratedColumn()
+    id?:number
     @Column({ nullable: true })
     from: string;
     
@@ -28,4 +30,6 @@ export class mails {
     
     @Column({ nullable: true })
     username: string;
+
+    
 }

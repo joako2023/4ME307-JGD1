@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { conn, entities } from './constants';
 import { MailsController } from './mails.controller';
 import { MailsService } from './mails.service';
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot(conn), 
+    TypeOrmModule.forFeature([
+      ...entities
+    ])],
   controllers: [MailsController],
   providers: [MailsService],
 })
