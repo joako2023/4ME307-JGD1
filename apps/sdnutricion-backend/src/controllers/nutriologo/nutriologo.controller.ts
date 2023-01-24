@@ -51,7 +51,9 @@ export class NutriologoController extends ControllerBase<NutriologoDto> {
     },
     @Body() body: any,
   ) {
-    body.id = JSON.parse(body.id);
+    for(const datakey in body) {
+      body[datakey] = JSON.parse(body[datakey]);
+    }
     if (files.photo) {
       files.photo.forEach((i, index) => {
         body.imagen += i.filename + (files.photo.length === index + 1 ? '' : ',');

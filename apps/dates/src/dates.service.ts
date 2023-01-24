@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Pacientes } from '@app/dominio/entities/pacientes.entity';
+import { Injectable, Inject } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { dates } from './entities/dates.entity';
@@ -6,7 +8,9 @@ import { dates } from './entities/dates.entity';
 @Injectable()
 export class DatesService {
   constructor(
-    @InjectRepository(dates) private repo: Repository<dates>
+    @InjectRepository(dates) private repo: Repository<dates>,
+    @InjectRepository(Pacientes) private repoPaciente: Repository<Pacientes>,
+    @Inject('MAILS_SERVICE') private clientMailsProxy: ClientProxy
   ){}
 
   async save(data: dates) {
@@ -36,7 +40,9 @@ export class DatesService {
       }
     });
 
-    if(agendadas >= 1) throw new Error('Ya tienes una cita medica agendada.'); 
+    const paciente = 
+    if(agendadas >= 1) throw new Error('Ya tienes una cita medica agendada.');
+    this.clientMailsProxy.emit({ send: 'enviar'}, { })
     return await this.repo.save(data);
   }
 
