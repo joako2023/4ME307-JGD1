@@ -20,9 +20,9 @@ export class DatesService {
     // validar que el paciente tiene una sola cita agendada
     const validate = await this.repo.count({
       where: {
-        day: data.day,
-        month: data.month,
-        hour: data.hour,
+        day: (+data.day).toString(),
+        month: (+data.month).toString(),
+        hour: (+data.hour).toString(),
         state: 'AGENDADO',
         medico: {
           id: data.medico.id
@@ -65,7 +65,7 @@ export class DatesService {
     const nutriologo = await this.repoNutriologo.findOne({
       relations: ['calendario'],
       where: {
-        id
+        id: id
       }
     });
     let fechaParaCita = new Date(fecha);
@@ -76,7 +76,7 @@ export class DatesService {
       throw new Error('Esta fecha no esta disponible para apartar cita');  
     }
     const horarioSemana = JSON.parse(nutriologo.calendario.horario);
-    let diaDeCita = dias[fechaParaCita.getDay()];
+    let diaDeCita = dias[fechaParaCita.getDay() + 1];
     let horas = [];
     let horasDisponibleDia = horarioSemana[diaDeCita] as { from: string, to: string }[]
     for (let index = 0; index < horasDisponibleDia.length; index++) {
@@ -93,7 +93,7 @@ export class DatesService {
       let toDate = new Date();
       toDate.setHours(hourTo, minTo);
 
-      horas.push(this.procesarHoras(fromDate, toDate, tiempoCita));
+      horas.push(...this.procesarHoras(fromDate, toDate, tiempoCita));
     }
 
     // verficamos que las horas pueden ser agendadas
@@ -101,11 +101,11 @@ export class DatesService {
     // año - mes - dia
     const citas = await this.repo.find({
       where: {
-        day: fecha.split('-')[2],
-        month: fecha.split('-')[1],
-        year: fecha.split('-')[0],
+        day: (+fecha.split('-')[2]).toString(),
+        month: (+fecha.split('-')[1]).toString(),
+        year: (+fecha.split('-')[0]).toString(),
         medico: {
-          id
+          id: id
         }
       }
     });
@@ -117,7 +117,9 @@ export class DatesService {
   procesarHoras(from: Date, to: Date, min: number) {
     let hours = [];
     while(from < to) {
-      let mins = from.getHours() + ':' + from.getMinutes();
+      const fromHour = from.getHours().toString();
+      const fromMins = from.getMinutes().toString();
+      let mins = (fromHour.length > 1 ? fromHour : '0'+fromHour ) + ':' + (fromMins.length > 1 ? fromMins : '0'+ fromMins);
       hours.push(mins);
       from.setMinutes(from.getMinutes() + min);
     }

@@ -18,4 +18,9 @@ export class CitasController {
     consultarCitas(@Param('id') id: number) {
         return this.clientCitasProxy.send({ dates: 'citas-medico' }, { id }).pipe(timeout(10000));
     }
+
+    @Get('horascita/:id/:fecha')
+    consultarHorasCitas(@Param('id') id: number, @Param('fecha') fecha: string) {
+        return this.clientCitasProxy.send({ dates: 'horas-citas' }, { id, fecha }).pipe(timeout(10000));
+    }
 }

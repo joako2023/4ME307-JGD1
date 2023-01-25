@@ -26,7 +26,6 @@ export class MailsController {
       return await this.mailsService.execute(mail);
     } catch (error) {
       return { error: error.message };
-      
     }
   }
 }

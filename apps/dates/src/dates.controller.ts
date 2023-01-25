@@ -17,10 +17,11 @@ export class DatesController {
     }
   }
 
-  @MessagePattern({ dates: 'fechas' })   
+  @MessagePattern({ dates: 'horas-citas' })   
   async consultarFechas(data: any){
     try {
-        return await this.datesService.crearHorasDeCita(data.id, data.fecha);
+      console.log(data);
+        return await this.datesService.crearHorasDeCita(+data.id, data.fecha);
     } catch (error){
       return { error: error.message };
     }
