@@ -20,6 +20,16 @@ export const entities = [
     Servicios,
     calendario
 ];
+
+export const dias = [
+  'domingo',
+  'lunes',
+  'martes',
+  'miércoles',
+  'jueves',
+  'viernes',
+  'sábado',
+]
 export const conn = {
   type: 'mysql',
   host: 'localhost',

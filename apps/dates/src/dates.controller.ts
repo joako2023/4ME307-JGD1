@@ -17,6 +17,15 @@ export class DatesController {
     }
   }
 
+  @MessagePattern({ dates: 'fechas' })   
+  async consultarFechas(data: any){
+    try {
+        return await this.datesService.crearHorasDeCita(data.id, data.fecha);
+    } catch (error){
+      return { error: error.message };
+    }
+  }
+
   @MessagePattern({ dates: 'citas-medico' })
   async consultarCitasMedico(data: any) {
     return await this.datesService.consultarCitasMedico(data.id);

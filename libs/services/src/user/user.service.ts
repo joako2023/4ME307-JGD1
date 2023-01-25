@@ -4,6 +4,7 @@ import { User } from '@app/dominio/entities/user.entity';
 import { Repository } from 'typeorm';
 import { ServiceBase } from '@app/services/base/service.base';
 import * as bcrypt from 'bcrypt';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
 export class UserService extends ServiceBase<User> {
@@ -46,5 +47,19 @@ export class UserService extends ServiceBase<User> {
       ])
       .then((resp) => console.log('usuario creado'))
       .catch(() => console.log('usuario existente.'));
+  }
+
+  async guardar(data: User) {
+    if(data.password) {
+      data.password = bcrypt.hashSync(data.password, 10)
+    }
+    return await this.repository.save(data);
+  }
+
+  async actualizar(
+    id: number | string,
+    data: QueryDeepPartialEntity<User>,
+  ): Promise<any> {
+    return await this.repository.update(id, data);
   }
 }
