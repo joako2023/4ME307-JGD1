@@ -68,7 +68,7 @@ export class DatesService {
         id: id
       }
     });
-    let fechaParaCita = new Date(fecha);
+    let fechaParaCita = new Date(+fecha.split('-')[0],+fecha.split('-')[1]-1,+fecha.split('-')[2]);
     const tiempoCita = +nutriologo.calendario.timeDates;
     const fechasNoDisponible = JSON.parse(nutriologo.calendario.daysOut) as string[];
     //la cita se hace en una fecha no disponible ?
@@ -76,21 +76,21 @@ export class DatesService {
       throw new Error('Esta fecha no esta disponible para apartar cita');  
     }
     const horarioSemana = JSON.parse(nutriologo.calendario.horario);
-    let diaDeCita = dias[fechaParaCita.getDay() + 1];
+    let diaDeCita = dias[fechaParaCita.getDay()];
     let horas = [];
     let horasDisponibleDia = horarioSemana[diaDeCita] as { from: string, to: string }[]
     for (let index = 0; index < horasDisponibleDia.length; index++) {
       const { from, to } = horasDisponibleDia[index];
-      const hourFrom = +from.split(':')[0];
-      const minFrom = +from.split(':')[1];
+      let hourFrom = +from.split(':')[0];
+      let minFrom = +from.split(':')[1];
 
-      const hourTo = +to.split(':')[0];
-      const minTo = +to.split(':')[1];
+      let hourTo = +to.split(':')[0];
+      let minTo = +to.split(':')[1];
 
-      let fromDate = new Date();
+      let fromDate = new Date(+fecha.split('-')[0],+fecha.split('-')[1]-1,+fecha.split('-')[2]);
       fromDate.setHours(hourFrom, minFrom);
 
-      let toDate = new Date();
+      let toDate = new Date(+fecha.split('-')[0],+fecha.split('-')[1]-1,+fecha.split('-')[2]);
       toDate.setHours(hourTo, minTo);
 
       horas.push(...this.procesarHoras(fromDate, toDate, tiempoCita));
@@ -104,13 +104,14 @@ export class DatesService {
         day: (+fecha.split('-')[2]).toString(),
         month: (+fecha.split('-')[1]).toString(),
         year: (+fecha.split('-')[0]).toString(),
+        state: 'AGENDADO',
         medico: {
           id: id
         }
       }
     });
     let horasCitas = citas.map(i => (i.hour));
-    horas = horas.filter(x => !horasCitas.includes(x)).concat(horasCitas.filter(y => !horas.includes(y)));
+    horas = horas.filter(x => !horasCitas.includes(x));
     return horas;
   }
 
