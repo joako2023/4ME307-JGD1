@@ -22,6 +22,9 @@ import { CitasController } from './citas/citas.controller';
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { CalendarioController } from './calendario/calendario.controller';
 import { MailsController } from './mails/mails.controller';
+import { MetricasController } from "./metricas/metricas.controller";
+
+
 
 @Module({
   imports: [
@@ -56,7 +59,8 @@ import { MailsController } from './mails/mails.controller';
     UploadedsController,
     CitasController,
     CalendarioController,
-    MailsController
+    MailsController,
+    MetricasController
   ]
 })
 export class ControllersModule {
