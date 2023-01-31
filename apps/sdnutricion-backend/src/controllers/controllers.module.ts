@@ -23,6 +23,8 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
 import { CalendarioController } from './calendario/calendario.controller';
 import { MailsController } from './mails/mails.controller';
 import { MetricasController } from "./metricas/metricas.controller";
+import { ChartsController } from './charts/charts.controller';
+import { FactorysModule } from "@app/factorys";
 
 
 
@@ -37,7 +39,7 @@ import { MetricasController } from "./metricas/metricas.controller";
       {name: 'CITAS_SERVICE', transport: Transport.TCP },
       {name: 'MAILS_SERVICE', transport: Transport.TCP }
     ]),
-    ServicesModule
+    ServicesModule, FactorysModule
   ],
   controllers: [
     AlimentosController,
@@ -60,7 +62,8 @@ import { MetricasController } from "./metricas/metricas.controller";
     CitasController,
     CalendarioController,
     MailsController,
-    MetricasController
+    MetricasController,
+    ChartsController
   ]
 })
 export class ControllersModule {

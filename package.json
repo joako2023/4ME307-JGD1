@@ -98,7 +98,8 @@
     "moduleNameMapper": {
       "^@app/dominio(|/.*)$": "<rootDir>/libs/dominio/src/$1",
       "^@app/services(|/.*)$": "<rootDir>/libs/services/src/$1",
-      "^@app/controller(|/.*)$": "<rootDir>/libs/controller/src/$1"
+      "^@app/controller(|/.*)$": "<rootDir>/libs/controller/src/$1",
+      "^@app/factorys(|/.*)$": "<rootDir>/libs/factorys/src/$1"
     }
   }
 }
