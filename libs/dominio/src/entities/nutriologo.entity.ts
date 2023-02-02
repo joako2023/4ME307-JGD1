@@ -25,6 +25,9 @@ export class Nutriologo extends isEntity {
   @Column()
   public apellido: string;
 
+  @Column({ nullable: true })
+  public nombre_completo: string;
+
   @Column()
   public telefono: string;
 
