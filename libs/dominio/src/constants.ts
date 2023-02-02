@@ -16,6 +16,7 @@ import { Suscripciones } from '@app/dominio/entities/suscripciones.entity';
 import { TipoEstablecimiento } from '@app/dominio/entities/tipo-establecimiento.entity';
 import { dates } from 'apps/dates/src/entities/dates.entity';
 import { calendario } from './entities/calendario.entity';
+import { MetricasEntity } from './entities/metricas.entity';
 export const entities = [
   Alimentos,
   AlimentosSugeridos,
@@ -34,7 +35,8 @@ export const entities = [
   TipoEstablecimiento,
   User,
   dates,
-  calendario
+  calendario,
+  MetricasEntity
 ];
 
 export const VARCONNECTION = <any>{

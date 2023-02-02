@@ -134,6 +134,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/crons/tsconfig.app.json"
       }
+    },
+    "factorys": {
+      "type": "library",
+      "root": "libs/factorys",
+      "entryFile": "index",
+      "sourceRoot": "libs/factorys/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/factorys/tsconfig.lib.json"
+      }
     }
   }
 }

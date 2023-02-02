@@ -35,6 +35,12 @@
       ],
       "@app/controller/*": [
         "libs/controller/src/*"
+      ],
+      "@app/factorys": [
+        "libs/factorys/src"
+      ],
+      "@app/factorys/*": [
+        "libs/factorys/src/*"
       ]
     }
   }
