@@ -43,6 +43,7 @@ export class Suscripciones extends isEntity {
     nullable: true,
   })
   nutriologo?: Nutriologo;
+  
   @BeforeInsert()
   @BeforeUpdate()
   async actualizarFechaFinal() {
