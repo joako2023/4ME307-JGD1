@@ -48,9 +48,14 @@ export class MetricasService {
         const createRegistro = this.metricasRepository.create(metrica)
         await this.metricasRepository.save(createRegistro)
         }
-        const fusion= this.metricasRepository.merge(metricas[0],metrica)
+        //const fusion= this.metricasRepository.merge(metricas[0],metrica)
+         await this.metricasRepository.save(metrica)
+         console.log(metrica)
+         /**
+          * const fusion= this.metricasRepository.merge(metricas[0],metrica)
          await this.metricasRepository.update(metricas[0].id,fusion)
-    }
+          */
+    } //arreglar funcion para que guarde cada registro, no solo 1 solo actualizado
 
     async GET(){
        const metrica:any=await this.metricasRepository.findOne({where:{id:1}})

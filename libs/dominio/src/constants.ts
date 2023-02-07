@@ -48,7 +48,7 @@ export const VARCONNECTION = <any>{
   database: 'db_api_sd_test',
   entities: [...entities],
   synchronize: true,
-  logging: false,
+  logging: true,
 };
 export const categoriasSmae = [
   'INTRODUCCION',
