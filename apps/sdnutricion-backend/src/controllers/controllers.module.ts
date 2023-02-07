@@ -22,12 +22,10 @@ import { CitasController } from './citas/citas.controller';
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { CalendarioController } from './calendario/calendario.controller';
 import { MailsController } from './mails/mails.controller';
+import { PaysController } from './pays/pays.controller';
+import { ChartsController } from "./charts/charts.controller";
 import { MetricasController } from "./metricas/metricas.controller";
-import { ChartsController } from './charts/charts.controller';
 import { FactorysModule } from "@app/factorys";
-
-
-
 @Module({
   imports: [
     MulterModule.registerAsync({
@@ -37,7 +35,8 @@ import { FactorysModule } from "@app/factorys";
     }),
     ClientsModule.register([
       {name: 'CITAS_SERVICE', transport: Transport.TCP },
-      {name: 'MAILS_SERVICE', transport: Transport.TCP }
+      {name: 'MAILS_SERVICE', transport: Transport.TCP },
+      {name: 'PAYS_SERVICE', transport: Transport.TCP }
     ]),
     ServicesModule, FactorysModule
   ],
@@ -62,6 +61,7 @@ import { FactorysModule } from "@app/factorys";
     CitasController,
     CalendarioController,
     MailsController,
+    PaysController,
     MetricasController,
     ChartsController
   ]

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
   Put,
@@ -25,6 +26,11 @@ export class NutriologoController extends ControllerBase<NutriologoDto> {
       'pacientes',
       'calendario'
     ]);
+  }
+
+  @Get('/filtrar/:parametro')
+  async consultarConFiltro(@Param('parametro') parametro: string) {
+    return await this.service.consultarConFiltro( parametro as any, this.relations);
   }
 
   @Post() //<-- entry points or end points hace referencia al lugar donde se conectara la aplicación para guardar el dato
