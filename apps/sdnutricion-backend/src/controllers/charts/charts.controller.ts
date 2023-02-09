@@ -9,8 +9,8 @@ export class ChartsController {
       }
     
 
-    @Get(':type')
-    traerGrafica(@Param('type') type:string) {
-        return this.chart.crearFabrica(type).crearGrafico();
+    @Get(':type/:metricaNombre/:from/:to')
+    traerGrafica(@Param('type') type:string, @Param('metricaNombre') metricaNombre:string, @Param('from') from:string, @Param('to') to:string) {
+        return this.chart.crearFabrica(type).crearGrafico(metricaNombre,{from,to});
     }
 }

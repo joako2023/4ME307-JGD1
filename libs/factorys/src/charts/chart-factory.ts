@@ -11,7 +11,8 @@ import { lineFactory } from "./line-factory";
 export class chartFactory {
 
     constructor(
-        @InjectRepository(MetricasEntity) protected metriRepo: Repository<MetricasEntity>
+        @InjectRepository(MetricasEntity) protected metriRepo: Repository<MetricasEntity>,
+        
     ) { }
 
     crearFabrica(type: string):chartAbstractFactory {
