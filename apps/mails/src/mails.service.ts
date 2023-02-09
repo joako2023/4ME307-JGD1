@@ -18,14 +18,14 @@ export class MailsService {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: "ser34diaz@gmail.com", // generated ethereal user
-          pass: "gjinflbrwdldypxk", // generated ethereal password
+          user: "sdnutriciontest@gmail.com", // generated ethereal user
+          pass: "evdddomwbofrdkvw", // generated ethereal password
         },
       });
-
+// sdnutricion123456
 
       // send mail with defined transport object
-      let info = transporter.sendMail({ ...mail });
+      let info = await transporter.sendMail({ ...mail });
       console.log(mail)
      
     } catch (error) {
