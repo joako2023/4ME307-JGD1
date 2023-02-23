@@ -1,3 +1,4 @@
+import { Calificacion } from './calificacion.entity';
 import { dates } from 'apps/dates/src/entities/dates.entity';
 import { Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Nutriologo } from './nutriologo.entity';
@@ -11,4 +12,7 @@ export class Pacientes extends PacientesBase {
   
   @OneToMany(() => dates, i => i.paciente)
   citas: dates;
+
+  @OneToMany(() => Calificacion, (c) => c.paciente)
+  calificaciones: number[];
 }

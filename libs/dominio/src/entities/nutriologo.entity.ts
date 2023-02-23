@@ -13,6 +13,7 @@ import { Establecimiento } from './establecimiento.entity';
 import { Pacientes } from './pacientes.entity';
 import { Suscripciones } from './suscripciones.entity';
 import { User } from './user.entity';
+import { Calificacion } from './calificacion.entity';
 
 @Entity()
 export class Nutriologo extends isEntity {
@@ -49,7 +50,7 @@ export class Nutriologo extends isEntity {
   @Column()
   public imagen: string;
 
-  @Column({ default: 0, nullable: true })
+  @Column({ default: 5, nullable: true })
   public score?: number;
 
   @ManyToOne(
@@ -75,4 +76,7 @@ export class Nutriologo extends isEntity {
   
   @OneToMany(() => dates, i => i.medico)
   citas: dates[];
+
+  @OneToMany(() => Calificacion, (c) => c.nutriologo)
+  calificaciones: number[];
 }
