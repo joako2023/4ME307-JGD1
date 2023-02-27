@@ -14,6 +14,8 @@ totalSuscripcionesHabilitadas:number
 @Column()
 totalSuscripcionesDeshabilitadas:number
 @Column()
+sumPago:number
+@Column({type:'longtext'})
 rankedNutriologos:string //esto es un arreglo objeto stringficado
 
 }

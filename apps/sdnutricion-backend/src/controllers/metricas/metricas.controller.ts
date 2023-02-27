@@ -1,5 +1,5 @@
 import { MetricasService } from '@app/services/metricas/metricas.service';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('metricas')
 export class MetricasController {
@@ -8,9 +8,18 @@ export class MetricasController {
     ){
 
     }
-
     @Get()
-    GetMetricas(){
-        return this.metricasService.GET()
+    GetMetri(){
+        
+            return this.metricasService.GET()
+    }
+       
+
+    @Get(':from/:to')
+    GetMetricas(@Param('from')from:string, @Param('to')to:string){
+        
+            return this.metricasService.getFechaMetrica(from,to)
+        
+        
     }
 }
