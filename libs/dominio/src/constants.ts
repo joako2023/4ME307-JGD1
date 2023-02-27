@@ -1,3 +1,4 @@
+import { Calificacion } from './entities/calificacion.entity';
 import { User } from '@app/dominio/entities/user.entity';
 import { Alimentos } from '@app/dominio/entities/alimentos.entity';
 import { AlimentosSugeridos } from '@app/dominio/entities/alimentos-sugeridos.entity';
@@ -21,6 +22,7 @@ export const entities = [
   Alimentos,
   AlimentosSugeridos,
   CategoriasSmae,
+  Calificacion,
   Equivalencias,
   Establecimiento,
   EvaluacionesQuimicas,
