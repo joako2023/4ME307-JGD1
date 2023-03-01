@@ -69,9 +69,11 @@ export class MetricasService {
     }
 
 async getFechaMetrica(from:string, to:string){
+
 const fromFecha= new Date(moment(from).set('hours',0).set('minutes',0).set('seconds',0).set('milliseconds',0).utcOffset(0, true).format()) 
 const toFecha=new Date(moment(to).set('hours',23).set('minutes',59).set('seconds',59).set('milliseconds',999).utcOffset(0, true).format())
-
+console.log(fromFecha)
+console.log(toFecha)
 const metri= await this.metricasRepository.find(
     {
         
@@ -79,7 +81,8 @@ const metri= await this.metricasRepository.find(
         created_at:Between(fromFecha,toFecha)
     }}
 )
-if (metri.length=0) {
+console.log(metri)
+if (metri.length===0) {
     return undefined
 }else{
     return metri
