@@ -13,10 +13,8 @@ export class PacientesService extends ServiceBase<Pacientes> {
     repository.save({
       id: 1,
       active: false,
-      datos_personales: JSON.stringify({
-        nombre: 'daniel',
-        apellidos: 'dasda'
-      }),
+      nombres: 'daniel',
+      apellidos: 'san juan',
       usuario: {
         id: 3
       }

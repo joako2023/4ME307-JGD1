@@ -1,4 +1,4 @@
-import { BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 export class isEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -6,13 +6,9 @@ export class isEntity extends BaseEntity {
   @Column({ nullable: false, default: true })
   active: boolean;
 
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
+  @UpdateDateColumn()
   update_at?: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
+ @CreateDateColumn()
   created_at?: Date;
 }

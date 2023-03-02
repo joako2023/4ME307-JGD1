@@ -17,7 +17,7 @@ export class User extends isEntity {
   @Column({ default: false })
   confirmed: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   telefono: string;
 
   @Column() // --> ROLES: ADMIN, NUTRIOLOGO, PACIENTE, COLABORADOR

@@ -5,7 +5,9 @@ import { MailsModule } from './mails.module';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(MailsModule, {
-   transport: Transport.TCP
+   transport: Transport.TCP, options: {
+    port: 3005
+   }
   });
   await app.listen();
 }
