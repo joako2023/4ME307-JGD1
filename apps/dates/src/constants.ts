@@ -8,6 +8,7 @@ import { Suscripciones } from "@app/dominio/entities/suscripciones.entity";
 import { User } from "@app/dominio/entities/user.entity";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { dates } from "./entities/dates.entity";
+import { Calificacion } from '../../../libs/dominio/src/entities/calificacion.entity';
 
 export const entities = [
     dates,
@@ -18,7 +19,8 @@ export const entities = [
     Suscripciones,
     Plan,
     Servicios,
-    calendario
+    calendario,
+    Calificacion
 ];
 
 export const dias = [

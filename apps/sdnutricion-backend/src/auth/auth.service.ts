@@ -11,7 +11,7 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userService.getRepo().findOne({
-      relations: ['nutriologo', 'nutriologo.suscripciones', 'nutriologo.establecimiento', 'nutriologo.calendario'],
+      relations: ['nutriologo', 'nutriologo.suscripciones', 'nutriologo.establecimiento', 'nutriologo.calendario', 'paciente'],
       where: {
         email: email,
       }

@@ -1,8 +1,9 @@
 import { Calificacion } from './calificacion.entity';
 import { dates } from 'apps/dates/src/entities/dates.entity';
-import { Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Nutriologo } from './nutriologo.entity';
 import { PacientesBase } from './pacientes.base';
+import { User } from './user.entity';
 
 // EJECUTAR CONSULTA in mysql ALTER TABLE Pacientes ROW_FORMAT=DYNAMIC; evita error Row size too large
 @Entity()
@@ -15,4 +16,8 @@ export class Pacientes extends PacientesBase {
 
   @OneToMany(() => Calificacion, (c) => c.paciente)
   calificaciones: number[];
+
+  @OneToOne(() => User, i => i.paciente)
+  @JoinColumn()
+  usuario?: User;
 }
