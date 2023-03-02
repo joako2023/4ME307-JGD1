@@ -6,6 +6,6 @@ import { UserService } from '@app/services/user/user.service';
 @Controller('user')
 export class UserController extends ControllerBase<UserDto> {
   constructor(protected service: UserService) {
-    super(service, []);
+    super(service, ['pacientes']);
   }
 }

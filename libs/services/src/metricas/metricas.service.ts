@@ -4,8 +4,9 @@ import { Pacientes } from '@app/dominio/entities/pacientes.entity';
 import { Suscripciones } from '@app/dominio/entities/suscripciones.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import * as moment from 'moment';
 @Injectable()
 export class MetricasService {
 
@@ -26,17 +27,25 @@ export class MetricasService {
            rankedNutriologos = totalNutriologo.sort((a: Nutriologo, b: Nutriologo) => {
                 var textA = a.score;
                 var textB = b.score;
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                return (textA > textB) ? -1 : (textA > textB) ? 1 : 0;
             }).slice(0, 9)
         }else{
             rankedNutriologos=[]
         }
+        
         const totalPacientes = await this.pacientesRepository.count()
         const totalSuscripciones = await this.suscripcionesRepository.count()
+        let sumPago:number=0
+        const PagoSuscripciones= await this.suscripcionesRepository.find({select:['pago']})
+        
+        if (PagoSuscripciones.length>0) {
+             sumPago = PagoSuscripciones.reduce((acumulador, valorActual) => acumulador + valorActual.pago, 0);
+             
+        }
         const totalSuscripcionesHabilitadas = await this.suscripcionesRepository.count({ where: { estado: 'ACTIVO' } })
         const totalSuscripcionesDeshabilitadas = await this.suscripcionesRepository.count({ where: { estado: 'INACTIVO' } })
         rankedNutriologos = JSON.stringify(rankedNutriologos)
-        return { totalNutriologo: totalNutriologo.length, totalPacientes, totalSuscripciones, totalSuscripcionesDeshabilitadas, totalSuscripcionesHabilitadas, rankedNutriologos }
+        return { totalNutriologo: totalNutriologo.length, totalPacientes, totalSuscripciones, totalSuscripcionesDeshabilitadas, totalSuscripcionesHabilitadas,sumPago, rankedNutriologos }
 
     }
 
@@ -48,20 +57,44 @@ export class MetricasService {
         const createRegistro = this.metricasRepository.create(metrica)
         await this.metricasRepository.save(createRegistro)
         }
-        //const fusion= this.metricasRepository.merge(metricas[0],metrica)
          await this.metricasRepository.save(metrica)
-         console.log(metrica)
-         /**
-          * const fusion= this.metricasRepository.merge(metricas[0],metrica)
-         await this.metricasRepository.update(metricas[0].id,fusion)
-          */
-    } //arreglar funcion para que guarde cada registro, no solo 1 solo actualizado
+      
+    } 
 
     async GET(){
-       const metrica:any=await this.metricasRepository.findOne({where:{id:1}})
-       metrica.rankedNutriologos=JSON.parse(metrica.rankedNutriologos)  
-       return metrica  
+       const metrica:any=await this.metricasRepository.find()
+       const actualMetrica:any=metrica.pop()
+       actualMetrica.rankedNutriologos=JSON.parse(actualMetrica.rankedNutriologos)  
+       return actualMetrica  
     }
+
+async getFechaMetrica(from:string, to:string){
+
+const fromFecha= new Date(moment(from).set('hours',0).set('minutes',0).set('seconds',0).set('milliseconds',0).utcOffset(0, true).format()) 
+const toFecha=new Date(moment(to).set('hours',23).set('minutes',59).set('seconds',59).set('milliseconds',999).utcOffset(0, true).format())
+console.log(fromFecha)
+console.log(toFecha)
+const metri= await this.metricasRepository.find(
+    {
+        
+        where:{
+        created_at:Between(fromFecha,toFecha)
+    }}
+)
+console.log(metri)
+if (metri.length===0) {
+    return undefined
+}else{
+    return metri
+}
+
+
+
+
+}
+
+
+
 
 
     @Cron(CronExpression.EVERY_DAY_AT_1AM)

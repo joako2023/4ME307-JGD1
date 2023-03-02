@@ -20,7 +20,10 @@ export class MailsController {
       
     }
   }
-
+  @Get()
+  getHello(): string {
+    return this.mailsService.getHello();
+  }
 
   @EventPattern({send:'enviar-template'})
   async template(data: any) {

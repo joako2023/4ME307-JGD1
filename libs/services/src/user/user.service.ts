@@ -44,6 +44,30 @@ export class UserService extends ServiceBase<User> {
           confirmed: true,
           rol: 'COLABORADOR',
         },
+        {
+          id: 5,
+          email: 'nutriologo2@sd.com',
+          password: bcrypt.hashSync('12345678', 10),
+          username: 'Nutriologo2 Clik',
+          confirmed: true,
+          rol: 'NUTRIOLOGO',
+        },
+        {
+          id: 6,
+          email: 'nutriologo3@sd.com',
+          password: bcrypt.hashSync('12345678', 10),
+          username: 'Nutriologo3 Clik',
+          confirmed: true,
+          rol: 'NUTRIOLOGO',
+        },
+        {
+          id: 7,
+          email: 'nutriologo4@sd.com',
+          password: bcrypt.hashSync('12345678', 10),
+          username: 'Nutriologo4 Clik',
+          confirmed: true,
+          rol: 'NUTRIOLOGO',
+        },
       ])
       .then((resp) => console.log('usuario creado'))
       .catch(() => console.log('usuario existente.'));

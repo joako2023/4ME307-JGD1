@@ -7,16 +7,28 @@ export class lineFactory extends chartAbstractFactory{
         
        
         const fechaFrom:any=this.procesarFecha(options.from)
-        const fechaTo:any=this.procesarFecha(options.to)
+        const fechaTo:any=this.procesarFechaTo(options.to)
         
-        const repo = await this.metricasRepo.find({select:[metricaNombre as keyof MetricasEntity],
-          where:{
-          created_at:Between(fechaFrom,fechaTo)
-        }})
+        const repo = await this.metricasRepo.find({
+        where:{
+        created_at:Between(new Date(options.from),
+        new Date(options.to),)
+        
+      }
+      
+    })
+    
          const dataRepo=repo.map(r=>(r[metricaNombre]))
+         
+         const labelRepo=repo.map(r=>{
+          const formatedFecha= new Date(r['created_at'])
+          const formattedDate = new Intl.DateTimeFormat('es-ES', options).format(formatedFecha);
+          return formattedDate
+         } )
            //return repo
          const config={
           data:  {
+            labels:labelRepo,
             datasets: [
               {
                 label: metricaNombre,

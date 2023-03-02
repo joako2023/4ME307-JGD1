@@ -2,6 +2,7 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToOne } from 'typeorm';
 import { isEntity } from './base/isEntity';
 import { Nutriologo } from './nutriologo.entity';
 import * as bcrypt from 'bcrypt';
+import { Pacientes } from './pacientes.entity';
 
 @Entity()
 export class User extends isEntity {
@@ -25,5 +26,8 @@ export class User extends isEntity {
 
   @OneToOne(() => Nutriologo, i => i.usuario)
   nutriologo: Nutriologo;
+
+  @OneToOne(() => Pacientes, i => i.usuario)
+  paciente: Pacientes;
 
 }
