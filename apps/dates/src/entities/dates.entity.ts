@@ -14,6 +14,9 @@ export class dates {
     month: string;
 
     @Column({ nullable: true })
+    monthLetter: string;
+
+    @Column({ nullable: true })
     hour: string;
 
     @Column({ nullable: true })
