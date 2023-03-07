@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
 import * as fs from "fs";
 
-@Controller('uploadeds')
+@Controller('uploads')
 export class UploadedsController {
     @Get(':file')
     getFile(@Param('file') file: string, @Res() res) {
