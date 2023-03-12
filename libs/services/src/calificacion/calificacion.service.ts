@@ -1,6 +1,4 @@
-import { Nutriologo } from './../../../dominio/src/entities/nutriologo.entity';
 import { CalificacionDto } from './../../../dominio/src/dtos/calificacion.dto';
-import { PacientesService } from '@app/services/pacientes/pacientes.service';
 import { NutriologoService } from '@app/services/nutriologo/nutriologo.service';
 import { Calificacion } from './../../../dominio/src/entities/calificacion.entity';
 import { ServiceBase } from './../base/service.base';
@@ -14,8 +12,7 @@ export class CalificacionService extends ServiceBase<Calificacion>{
 
     constructor(
         @InjectRepository(Calificacion) protected repository: Repository<Calificacion>,
-        private nutService: NutriologoService,
-        private pacienteService: PacientesService
+        private nutService: NutriologoService
     ) {
         super(repository);
     }
@@ -24,8 +21,13 @@ export class CalificacionService extends ServiceBase<Calificacion>{
         const cals:any = cal;
 
         if(cal.nutriologo){
-            cals.Nutriologo = await this.nutService.obtener(cals.nutriologo);
+            cals.nutriologo = await this.nutService.obtener(cals.nutriologo);
         }
+
+        if(!cals.paciente){
+            throw new ConflictException("No se encontro paciente");
+        }
+
        const cali:any = this.repository.create(cals)
         await this.repository.save(cali)
         return await this.calculateScore(cali);

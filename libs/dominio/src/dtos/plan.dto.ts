@@ -21,9 +21,9 @@ export class PlanDto extends Plan {
   @ApiProperty()
   mesesSinPago?: number;
 
-  @ApiProperty()
+  @ApiProperty({required:false})
   suscripciones?: Suscripciones[];
 
-  @ApiProperty()
+  @ApiProperty({required:false})
   servicios?: Servicios[];
 }

@@ -29,5 +29,5 @@ export class Calificacion extends isEntity{
         () => Pacientes,
         (pacientes) => pacientes.calificaciones,
     )
-    public paciente: Pacientes
+    public paciente: Pacientes;
 }

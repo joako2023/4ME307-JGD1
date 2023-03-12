@@ -1,4 +1,5 @@
 import { calendario } from "@app/dominio/entities/calendario.entity";
+import { Calificacion } from "@app/dominio/entities/calificacion.entity";
 import { Establecimiento } from "@app/dominio/entities/establecimiento.entity";
 import { Nutriologo } from "@app/dominio/entities/nutriologo.entity";
 import { Pacientes } from "@app/dominio/entities/pacientes.entity";
@@ -8,7 +9,6 @@ import { Suscripciones } from "@app/dominio/entities/suscripciones.entity";
 import { User } from "@app/dominio/entities/user.entity";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { dates } from "./entities/dates.entity";
-import { Calificacion } from '../../../libs/dominio/src/entities/calificacion.entity';
 
 export const entities = [
     dates,

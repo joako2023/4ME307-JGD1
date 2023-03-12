@@ -26,6 +26,7 @@ import { PaysController } from './pays/pays.controller';
 import { ChartsController } from "./charts/charts.controller";
 import { MetricasController } from "./metricas/metricas.controller";
 import { FactorysModule } from "@app/factorys";
+import { CalificicacionController } from "./calificacion/calificacion.controller";
 @Module({
   imports: [
     MulterModule.registerAsync({
@@ -63,7 +64,8 @@ import { FactorysModule } from "@app/factorys";
     MailsController,
     PaysController,
     MetricasController,
-    ChartsController
+    ChartsController,
+    CalificicacionController
   ]
 })
 export class ControllersModule {

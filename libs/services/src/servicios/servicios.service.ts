@@ -11,4 +11,5 @@ export class ServiciosService extends ServiceBase<Servicios> {
   ) {
     super(repository);
   }
+  
 }
