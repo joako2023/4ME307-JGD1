@@ -18,7 +18,7 @@ export class Pacientes extends PacientesBase {
   @Column()
   apellidos: string;
 
-  @Column({ nullable: true })
+  @Column({ unique: true })
   identificacion: string;
 
   @ManyToOne(() => Nutriologo, (t) => t.pacientes)

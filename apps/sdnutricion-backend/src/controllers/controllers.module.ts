@@ -34,8 +34,8 @@ import { FactorysModule } from "@app/factorys";
       })
     }),
     ClientsModule.register([
-      {name: 'CITAS_SERVICE', transport: Transport.TCP },
-      {name: 'MAILS_SERVICE', transport: Transport.TCP },
+      {name: 'CITAS_SERVICE', transport: Transport.TCP,options: { port: 3006} },
+      {name: 'MAILS_SERVICE', transport: Transport.TCP,options: { port: 3005} },
       {name: 'PAYS_SERVICE', transport: Transport.TCP }
     ]),
     ServicesModule, FactorysModule

@@ -1,7 +1,7 @@
 import { Column, Entity, UpdateDateColumn } from 'typeorm';
-import { PacientesBase } from './pacientes.base';
+import { Pacientes } from './pacientes.entity'
 @Entity()
-export class HistorialPacientes extends PacientesBase {
+export class HistorialPacientes extends Pacientes {
   @UpdateDateColumn()
   public fecha?: Date;
 }
