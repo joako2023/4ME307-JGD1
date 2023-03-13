@@ -68,6 +68,11 @@ export class NutriologoController extends ControllerBase<NutriologoDto> {
     return await this.serviceBase.guardar(body);
   }
 
+  @Get('/id/:parametro')
+  async consultarId(@Param('parametro') parametro: number){
+    return await this.service.consultarPorId(parametro, this.relations);
+  }
+
   @Put(':id')
   @ApiBody({ type: undefined })
   @UseInterceptors(

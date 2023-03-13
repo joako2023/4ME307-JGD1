@@ -1,5 +1,5 @@
 import { Controller, Inject, Post, Body} from '@nestjs/common';
-import { Get, Param } from '@nestjs/common/decorators';
+import { Delete, Get, Param, Put } from '@nestjs/common/decorators';
 import { ClientProxy } from '@nestjs/microservices';
 import { timeout } from 'rxjs';
 
@@ -12,6 +12,11 @@ export class CitasController {
     @Post()
     guardar(@Body() data: any) {
         return this.clientCitasProxy.send({ dates: 'guardar' }, data).pipe(timeout(10000));
+    }
+
+    @Put('reagendar')
+    reagendar(@Body() data: any){
+        return this.clientCitasProxy.send({dates: 'reagendar'}, data).pipe(timeout(10000));
     }
 
     @Get('medico/:id')
@@ -27,5 +32,15 @@ export class CitasController {
     @Get('paciente/:id')
     consultarCitasPaciente(@Param('id') id: number){
         return this.clientCitasProxy.send({ dates: 'citas-paciente' }, { id }).pipe(timeout(10000));
+    }
+
+    @Get('filtro/paciente/medico/:idP/:idM')
+    consultarCitasPaacienteMedico(@Param('idP') idP: number,@Param('idM') idM: number){
+        return this.clientCitasProxy.send({ dates: 'filtro-paciente-medico' }, {idP, idM} ).pipe(timeout(10000));
+    }
+
+    @Delete(':id')
+    borrar(@Param('id') id: number | string) {
+      return this.clientCitasProxy.send({dates: 'eliminar'}, {id}).pipe(timeout(10000));
     }
 }

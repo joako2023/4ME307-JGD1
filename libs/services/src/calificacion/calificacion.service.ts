@@ -29,12 +29,42 @@ export class CalificacionService extends ServiceBase<Calificacion>{
         }
 
        const cali:any = this.repository.create(cals)
-        await this.repository.save(cali)
-        return await this.calculateScore(cali);
+
+        let data = await  this.repository.save(cali);
+        return await this.calculateScore(cali, data);
+        
         
     }
 
-    async calculateScore(cal:Calificacion){
+    async consultarCalNutriologo(id: number){
+        return await this.repository.find({
+            relations: ['paciente'],
+            where: {
+                nutriologo: {
+                    id
+                }
+            },
+            take: 5,
+            order: {
+                id: 'DESC'
+            }  
+        });
+    }
+
+    async consultantPatientDoctor( idp: number, idm: number){
+        return await this.repository.count({
+            where: {
+                paciente: {
+                    id: idp
+                },
+                nutriologo: {
+                    id: idm
+                }
+            }
+        });
+    }
+
+    async calculateScore(cal:Calificacion, data: any){
         if(!cal.nutriologo){
             throw new NotFoundException("nutruiologo not found")
         }
@@ -54,6 +84,8 @@ export class CalificacionService extends ServiceBase<Calificacion>{
         let nut: any;
         nut = cal.nutriologo;
         
-        return await this.nutService.obtener(nut);
+        //return await this.nutService.obtener(nut);
+        await this.nutService.obtener(nut);
+        return data;
     }
 }

@@ -48,6 +48,39 @@ export class DatesService {
     return await this.repo.save(data);
   }
 
+  async updateSchedule(dataOld: dates, dataNew: dates) {
+
+    // paso 1 verificar la ultima cita agendada
+    const agendadas = await this.repo.count({
+      where: {
+        id: dataOld.id,
+        state: 'AGENDADO', 
+      }
+    });
+    if(agendadas < 1) throw new Error('La cita ya esta terminada.');
+
+    // paso 2 verificar que la hora es valida
+    const validate = await this.repo.count({
+      where: {
+        day: (dataNew.day).toString(),
+        month: (dataNew.month).toString(),
+        hour: (dataNew.hour).toString(),
+        state: 'AGENDADO',
+        medico: {
+          id: dataNew.medico.id
+        }
+      }
+    });
+    if(validate  !== 0) throw Error('Ya alguien agendo una cita a esta hora.');
+
+    // paso 3 actualizar la ultima cita agendada
+    return await this.repo.update(dataOld.id, dataNew);
+  }
+
+  async deletedate(id: number | string){
+    return await this.repo.delete(id);
+  }
+
   async obtener(id: any){
     return await this.repo.findOne({
       where:{
@@ -65,7 +98,7 @@ export class DatesService {
           id
         }
       }
-    })
+    });
   }
 
   async consultarCitasPaciente(id: number) {
@@ -77,7 +110,21 @@ export class DatesService {
         }
       }
 
-    })
+    });
+  }
+
+  async consultarCitasPacienteMedico(idP: number, idM: number) {
+    return await this.repo.count({
+      where: {
+        state: 'TERMINADO',
+        paciente: {
+          id: idP
+        },
+        medico: {
+          id: idM
+        }
+      }
+    });
   }
 
   async crearHorasDeCita(id: number, fecha: string) {

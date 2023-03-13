@@ -17,6 +17,27 @@ export class DatesController {
     }
   }
 
+  @MessagePattern({dates: 'reagendar'})
+  async reagendarCita(data: any){
+    let dataOld: dates = data[0];
+    let dataNew: dates = data[1];
+
+    try{
+      return await this.datesService.updateSchedule(dataOld, dataNew);
+    }catch (error) {
+      return { error: error.message };
+    }
+  }
+
+  @MessagePattern({dates: 'eliminar'})
+  async eliminarCita(id: number | string){
+    try{
+      return await this.datesService.deletedate(id);
+    }catch (error) {
+      return { error: error.message };
+    }
+  }
+
   @MessagePattern({ dates: 'horas-citas' })   
   async consultarFechas(data: any){
     try {
@@ -36,5 +57,16 @@ export class DatesController {
   @MessagePattern({ dates: 'citas-paciente' })
   async consultarCitasPaciente(data: any){
     return await this.datesService.consultarCitasPaciente(data.id);
+  }
+
+  @MessagePattern({ dates: 'filtro-paciente-medico' })
+  async consultarCitasPacienteMedico(data: any){
+    try {
+      console.log('idP : ' + data.idP + 'idM: '  + data.idM);
+      return await this.datesService.consultarCitasPacienteMedico(data.idP, data.idM);
+      
+    } catch (error){
+      return { error: error.message };
+    }
   }
 }

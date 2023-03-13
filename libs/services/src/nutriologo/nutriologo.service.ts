@@ -36,6 +36,15 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
     });
   }
 
+  async consultarPorId(query: any, relations: string[]){
+    return this.repository.findOne({
+      relations,
+      where:{
+        id: query
+      }
+    });
+  }
+
   async actualizar(id: number | string, data: QueryDeepPartialEntity<NutriologoDto>) {
     const old = await this.repository.findOne({
       where: {

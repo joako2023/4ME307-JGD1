@@ -25,4 +25,14 @@ import {
     create(@Body() calificacion: CalificacionDto){
         return this.service.create(calificacion);
     }
+
+    @Get('filtro/paciente/medico/:idP/:idM')
+    consultarCalificacionesPacienteMedico(@Param('idP') idP: number,@Param('idM') idM: number){
+        return this.service.consultantPatientDoctor(idP, idM);
+    }
+
+    @Get('filtro/medico/:id')
+    consultarUltimas5Calificaciones(@Param('id') id: number){
+        return this.service.consultarCalNutriologo(id);
+    }
   }
