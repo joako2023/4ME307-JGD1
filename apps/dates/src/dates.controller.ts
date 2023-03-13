@@ -22,6 +22,7 @@ export class DatesController {
     try {
       console.log(data);
         return await this.datesService.crearHorasDeCita(+data.id, data.fecha);
+      
     } catch (error){
       return { error: error.message };
     }
@@ -30,5 +31,10 @@ export class DatesController {
   @MessagePattern({ dates: 'citas-medico' })
   async consultarCitasMedico(data: any) {
     return await this.datesService.consultarCitasMedico(data.id);
+  }
+
+  @MessagePattern({ dates: 'citas-paciente' })
+  async consultarCitasPaciente(data: any){
+    return await this.datesService.consultarCitasPaciente(data.id);
   }
 }

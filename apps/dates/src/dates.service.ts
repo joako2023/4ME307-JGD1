@@ -48,6 +48,13 @@ export class DatesService {
     return await this.repo.save(data);
   }
 
+  async obtener(id: any){
+    return await this.repo.findOne({
+      where:{
+        id: id
+      }
+    });
+  }
 
   async consultarCitasMedico(id: number) {
     return await this.repo.find({
@@ -58,6 +65,18 @@ export class DatesService {
           id
         }
       }
+    })
+  }
+
+  async consultarCitasPaciente(id: number) {
+    return await this.repo.find({
+      relations: ['medico'],
+      where: {
+        paciente: {
+          id
+        }
+      }
+
     })
   }
 
@@ -101,18 +120,43 @@ export class DatesService {
     // año - mes - dia
     const citas = await this.repo.find({
       where: {
-        day: (+fecha.split('-')[2]).toString(),
-        month: (+fecha.split('-')[1]).toString(),
-        year: (+fecha.split('-')[0]).toString(),
+        day: ('0' + fechaParaCita.getDate()).slice(-2),
+        month: ('0' + (fechaParaCita.getMonth()+1)).slice(-2),
+        year: fechaParaCita.getFullYear().toString(),
         state: 'AGENDADO',
         medico: {
           id: id
         }
       }
     });
+
+    // horas programadas para agendar citas
     let horasCitas = citas.map(i => (i.hour));
-    horas = horas.filter(x => !horasCitas.includes(x));
-    return horas;
+
+    //horas = horas.filter(x => !horasCitas.includes(x));
+
+    // quitar las horas agendadas de las horas disponibles 
+    let horasRetornar = [];
+
+    horas.forEach(horadisponible => {
+      let respHoraAgendada = {
+        hora: horadisponible,
+        disponibilidad: 'Disponible'
+      };
+      horasCitas.forEach(horaAgendada => {
+        if(horadisponible === horaAgendada){
+          respHoraAgendada = {
+            hora: horadisponible,
+            disponibilidad: 'noDisponible'
+          };
+        }
+      });
+      horasRetornar.push(respHoraAgendada);
+    
+    });
+
+    return horasRetornar;
+    //return horas;
   }
 
   procesarHoras(from: Date, to: Date, min: number) {
