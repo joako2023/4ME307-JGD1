@@ -1,6 +1,7 @@
 import { calendario } from "@app/dominio/entities/calendario.entity";
 import { Calificacion } from "@app/dominio/entities/calificacion.entity";
 import { dates } from "@app/dominio/entities/dates.entity";
+import { Diagnosticos } from "@app/dominio/entities/diagnostico.entity";
 import { Establecimiento } from "@app/dominio/entities/establecimiento.entity";
 import { Nutriologo } from "@app/dominio/entities/nutriologo.entity";
 import { Pacientes } from "@app/dominio/entities/pacientes.entity";
@@ -20,7 +21,8 @@ export const entities = [
     Plan,
     Servicios,
     calendario,
-    Calificacion
+    Calificacion,
+    Diagnosticos
 ];
 
 export const dias = [

@@ -37,7 +37,7 @@ import { ChatGateway } from "./chat/chat.gateway";
       })
     }),
     ClientsModule.register([
-      { name: 'CITAS_SERVICE', transport: Transport.TCP, options: { port: 3006 } },
+      { name: 'CITAS_SERVICE', transport: Transport.TCP, options: { port: 3009 } },
       { name: 'MAILS_SERVICE', transport: Transport.TCP, options: { port: 3005 } },
       { name: 'DIAGNOSTICOS_SERVICE', transport: Transport.TCP, options: { port: 3010 } },
       { name: 'CHAT_SERVICE', transport: Transport.TCP, options: { port: 3011 } },
