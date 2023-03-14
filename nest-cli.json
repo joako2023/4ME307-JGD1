@@ -143,6 +143,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/factorys/tsconfig.lib.json"
       }
+    },
+    "diagnosticos": {
+      "type": "application",
+      "root": "apps/diagnosticos",
+      "entryFile": "main",
+      "sourceRoot": "apps/diagnosticos/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/diagnosticos/tsconfig.app.json"
+      }
     }
   }
 }

@@ -5,7 +5,6 @@ import { CategoriasSmaeController } from "./categorias-smae/categorias-smae.cont
 import { EquivalenciasController } from "./equivalencias/equivalencias.controller";
 import { EstablecimientoController } from "./establecimiento/establecimiento.controller";
 import { EvaluacionesQuimicasController } from "./evaluaciones-quimicas/evaluaciones-quimicas.controller";
-import { HistorialPacientesController } from "./historial-pacientes/historial-pacientes.controller";
 import { LibreriaAlimentosController } from "./libreria-alimentos/libreria-alimentos.controller";
 import { NutriologoController } from "./nutriologo/nutriologo.controller";
 import { PacientesController } from "./pacientes/pacientes.controller";
@@ -27,6 +26,9 @@ import { ChartsController } from "./charts/charts.controller";
 import { MetricasController } from "./metricas/metricas.controller";
 import { FactorysModule } from "@app/factorys";
 import { CalificicacionController } from "./calificacion/calificacion.controller";
+import { DiagnosticosController } from './diagnosticos/diagnosticos.controller';
+import { ChatController } from './chat/chat.controller';
+import { ChatGateway } from "./chat/chat.gateway";
 @Module({
   imports: [
     MulterModule.registerAsync({
@@ -35,9 +37,11 @@ import { CalificicacionController } from "./calificacion/calificacion.controller
       })
     }),
     ClientsModule.register([
-      {name: 'CITAS_SERVICE', transport: Transport.TCP,options: { port: 3006} },
-      {name: 'MAILS_SERVICE', transport: Transport.TCP,options: { port: 3005} },
-      {name: 'PAYS_SERVICE', transport: Transport.TCP }
+      { name: 'CITAS_SERVICE', transport: Transport.TCP, options: { port: 3006 } },
+      { name: 'MAILS_SERVICE', transport: Transport.TCP, options: { port: 3005 } },
+      { name: 'DIAGNOSTICOS_SERVICE', transport: Transport.TCP, options: { port: 3010 } },
+      { name: 'CHAT_SERVICE', transport: Transport.TCP, options: { port: 3011 } },
+      { name: 'PAYS_SERVICE', transport: Transport.TCP }
     ]),
     ServicesModule, FactorysModule
   ],
@@ -48,7 +52,6 @@ import { CalificicacionController } from "./calificacion/calificacion.controller
     EquivalenciasController,
     EstablecimientoController,
     EvaluacionesQuimicasController,
-    HistorialPacientesController,
     LibreriaAlimentosController,
     NutriologoController,
     PacientesController,
@@ -65,8 +68,11 @@ import { CalificicacionController } from "./calificacion/calificacion.controller
     PaysController,
     MetricasController,
     ChartsController,
-    CalificicacionController
-  ]
+    CalificicacionController,
+    DiagnosticosController,
+    ChatController
+  ],
+  providers: [ChatGateway]
 })
 export class ControllersModule {
 }

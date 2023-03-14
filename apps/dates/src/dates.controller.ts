@@ -1,7 +1,7 @@
+import { dates } from '@app/dominio/entities/dates.entity';
 import { Controller, Get } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { DatesService } from './dates.service';
-import { dates } from './entities/dates.entity';
 
 @Controller()
 export class DatesController {

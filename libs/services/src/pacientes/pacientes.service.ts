@@ -15,6 +15,7 @@ export class PacientesService extends ServiceBase<Pacientes> {
       active: false,
       nombres: 'daniel',
       apellidos: 'san juan',
+      identificacion: 'pacienteprueba',
       usuario: {
         id: 3
       }

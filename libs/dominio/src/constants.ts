@@ -6,7 +6,6 @@ import { CategoriasSmae } from '@app/dominio/entities/categorias-smae.entity';
 import { Equivalencias } from '@app/dominio/entities/equivalencias.entity';
 import { Establecimiento } from '@app/dominio/entities/establecimiento.entity';
 import { EvaluacionesQuimicas } from '@app/dominio/entities/evaluaciones-quimicas.entity';
-import { HistorialPacientes } from '@app/dominio/entities/historial.pacientes.entity';
 import { LibreriaAlimentos } from '@app/dominio/entities/libreria-alimentos.entity';
 import { Nutriologo } from '@app/dominio/entities/nutriologo.entity';
 import { Pacientes } from '@app/dominio/entities/pacientes.entity';
@@ -15,9 +14,10 @@ import { Plan } from '@app/dominio/entities/plan.entity';
 import { Servicios } from '@app/dominio/entities/servicios.entity';
 import { Suscripciones } from '@app/dominio/entities/suscripciones.entity';
 import { TipoEstablecimiento } from '@app/dominio/entities/tipo-establecimiento.entity';
-import { dates } from 'apps/dates/src/entities/dates.entity';
+import { dates } from '@app/dominio/entities/dates.entity';
 import { calendario } from './entities/calendario.entity';
 import { MetricasEntity } from './entities/metricas.entity';
+import { Diagnosticos } from './entities/diagnostico.entity';
 export const entities = [
   Alimentos,
   AlimentosSugeridos,
@@ -26,7 +26,6 @@ export const entities = [
   Equivalencias,
   Establecimiento,
   EvaluacionesQuimicas,
-  HistorialPacientes,
   LibreriaAlimentos,
   Nutriologo,
   Pacientes,
@@ -38,16 +37,17 @@ export const entities = [
   User,
   dates,
   calendario,
-  MetricasEntity
+  MetricasEntity,
+  Diagnosticos
 ];
 
 export const VARCONNECTION = <any>{
   type: 'mysql',
   host: 'localhost',
   port: 3306,
-  username: 'root',
-  password: '',
-  database: 'db_api_sd_test',
+  username: 'sdnutricion',
+  password: 'sdnutricion',
+  database: 'sdnutricion',
   entities: [...entities],
   synchronize: true,
   logging: false,

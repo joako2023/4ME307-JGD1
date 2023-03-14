@@ -1,3 +1,4 @@
+import { dates } from '@app/dominio/entities/dates.entity';
 import { Nutriologo } from '@app/dominio/entities/nutriologo.entity';
 import { Pacientes } from '@app/dominio/entities/pacientes.entity';
 import { Injectable, Inject } from '@nestjs/common';
@@ -5,7 +6,6 @@ import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { dias } from './constants';
-import { dates } from './entities/dates.entity';
 
 @Injectable()
 export class DatesService {
@@ -14,7 +14,7 @@ export class DatesService {
     @InjectRepository(Pacientes) private repoPaciente: Repository<Pacientes>,
     @InjectRepository(Nutriologo) private repoNutriologo: Repository<Nutriologo>,
     @Inject('MAILS_SERVICE') private clientMailsProxy: ClientProxy
-  ){}
+  ) { }
 
   async save(data: dates) {
     // validar que el paciente tiene una sola cita agendada
@@ -29,28 +29,33 @@ export class DatesService {
         }
       }
     });
-    if(validate  !== 0) throw Error('Ya alguien agendo una cita a esta hora.');
+    if (validate !== 0) throw Error('Ya alguien agendo una cita a esta hora.');
     // validar que la ultima cita este terminada
     const agendadas = await this.repo.count({
       where: {
         state: 'AGENDADO',
         medico: {
           id: data.medico.id
-        }, 
+        },
         paciente: {
           id: data.paciente.id
         }
       }
     });
 
-    if(agendadas >= 1) throw new Error('Ya tienes una cita medica agendada.');
-    this.clientMailsProxy.emit({ send: 'enviar'}, { })
+    if (agendadas >= 1) throw new Error('Ya tienes una cita medica agendada.');
+    this.clientMailsProxy.emit({ send: 'enviar' }, {})
     return await this.repo.save(data);
   }
 
-  async obtener(id: any){
+  async actualizarCita(id: number, estado: string) {
+    await this.repo.update(id, { state: estado })
+    return await this.repo.findOne({ where: { id } });
+  }
+
+  async obtener(id: any) {
     return await this.repo.findOne({
-      where:{
+      where: {
         id: id
       }
     });
@@ -58,7 +63,7 @@ export class DatesService {
 
   async consultarCitasMedico(id: number) {
     return await this.repo.find({
-      relations: ['paciente'],
+      relations: ['paciente', 'paciente.usuario'],
       where: {
         state: 'AGENDADO',
         medico: {
@@ -87,12 +92,12 @@ export class DatesService {
         id: id
       }
     });
-    let fechaParaCita = new Date(+fecha.split('-')[0],+fecha.split('-')[1]-1,+fecha.split('-')[2]);
+    let fechaParaCita = new Date(+fecha.split('-')[0], +fecha.split('-')[1] - 1, +fecha.split('-')[2]);
     const tiempoCita = +nutriologo.calendario.timeDates;
     const fechasNoDisponible = JSON.parse(nutriologo.calendario.daysOut) as string[];
     //la cita se hace en una fecha no disponible ?
-    if(fechasNoDisponible.some(i => i.includes(fecha))) {
-      throw new Error('Esta fecha no esta disponible para apartar cita');  
+    if (fechasNoDisponible.some(i => i.includes(fecha))) {
+      throw new Error('Esta fecha no esta disponible para apartar cita');
     }
     const horarioSemana = JSON.parse(nutriologo.calendario.horario);
     let diaDeCita = dias[fechaParaCita.getDay()];
@@ -106,10 +111,10 @@ export class DatesService {
       let hourTo = +to.split(':')[0];
       let minTo = +to.split(':')[1];
 
-      let fromDate = new Date(+fecha.split('-')[0],+fecha.split('-')[1]-1,+fecha.split('-')[2]);
+      let fromDate = new Date(+fecha.split('-')[0], +fecha.split('-')[1] - 1, +fecha.split('-')[2]);
       fromDate.setHours(hourFrom, minFrom);
 
-      let toDate = new Date(+fecha.split('-')[0],+fecha.split('-')[1]-1,+fecha.split('-')[2]);
+      let toDate = new Date(+fecha.split('-')[0], +fecha.split('-')[1] - 1, +fecha.split('-')[2]);
       toDate.setHours(hourTo, minTo);
 
       horas.push(...this.procesarHoras(fromDate, toDate, tiempoCita));
@@ -121,7 +126,7 @@ export class DatesService {
     const citas = await this.repo.find({
       where: {
         day: ('0' + fechaParaCita.getDate()).slice(-2),
-        month: ('0' + (fechaParaCita.getMonth()+1)).slice(-2),
+        month: ('0' + (fechaParaCita.getMonth() + 1)).slice(-2),
         year: fechaParaCita.getFullYear().toString(),
         state: 'AGENDADO',
         medico: {
@@ -133,6 +138,7 @@ export class DatesService {
     // horas programadas para agendar citas
     let horasCitas = citas.map(i => (i.hour));
 
+    console.log(horasCitas);
     //horas = horas.filter(x => !horasCitas.includes(x));
 
     // quitar las horas agendadas de las horas disponibles 
@@ -143,16 +149,8 @@ export class DatesService {
         hora: horadisponible,
         disponibilidad: 'Disponible'
       };
-      horasCitas.forEach(horaAgendada => {
-        if(horadisponible === horaAgendada){
-          respHoraAgendada = {
-            hora: horadisponible,
-            disponibilidad: 'noDisponible'
-          };
-        }
-      });
+      respHoraAgendada.disponibilidad = horasCitas.some(i => i === horadisponible) ? 'noDisponible' : 'Disponible';
       horasRetornar.push(respHoraAgendada);
-    
     });
 
     return horasRetornar;
@@ -161,10 +159,10 @@ export class DatesService {
 
   procesarHoras(from: Date, to: Date, min: number) {
     let hours = [];
-    while(from < to) {
+    while (from < to) {
       const fromHour = from.getHours().toString();
       const fromMins = from.getMinutes().toString();
-      let mins = (fromHour.length > 1 ? fromHour : '0'+fromHour ) + ':' + (fromMins.length > 1 ? fromMins : '0'+ fromMins);
+      let mins = (fromHour.length > 1 ? fromHour : '0' + fromHour) + ':' + (fromMins.length > 1 ? fromMins : '0' + fromMins);
       hours.push(mins);
       from.setMinutes(from.getMinutes() + min);
     }

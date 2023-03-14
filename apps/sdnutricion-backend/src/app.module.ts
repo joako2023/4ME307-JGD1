@@ -11,7 +11,7 @@ import { ScheduleModule } from "@nestjs/schedule";
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "uploads")
     }),
-    DominioModule, ControllersModule, AuthModule,ScheduleModule.forRoot()]
+    DominioModule, ControllersModule, AuthModule,ScheduleModule.forRoot()],
 })
 export class AppModule {
 }

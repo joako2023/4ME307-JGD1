@@ -17,7 +17,14 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
   }
 
   async guardar(data: Nutriologo) {
-    data.establecimiento = await this.establecimientoRepository.save(data.establecimiento);
+    try {
+      data.establecimiento = await this.establecimientoRepository.save(data.establecimiento);
+    } catch (error) {
+      await this.establecimientoRepository.update( {
+        nit_establecimiento: data.establecimiento.nit_establecimiento
+      } , data.establecimiento);
+      data.establecimiento = await this.establecimientoRepository.findOne({ where: { nit_establecimiento: data.establecimiento.nit_establecimiento }})
+    }
     return await this.repository.save(data);
   }
 
@@ -42,12 +49,20 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
         id: +id
       }
     });
+    const est = data.establecimiento as Establecimiento;
     if(data.imagen.length > 0) {
       let imagen = old.imagen.split(',');
       await this.deletePhoto([...imagen]);
     }
-    if(data.establecimiento) {
-      data.establecimiento = await this.establecimientoRepository.save({ ...data.establecimiento });
+    if(est && est.nit_establecimiento) {
+      try {
+        data.establecimiento = await this.establecimientoRepository.save(est);
+      } catch (error) {
+        await this.establecimientoRepository.update( {
+          nit_establecimiento: est.nit_establecimiento
+        } , est);
+        data.establecimiento = await this.establecimientoRepository.findOne({ where: { nit_establecimiento: est.nit_establecimiento }})
+      }
     }
     console.log(old, data);
     return await this.repository.update(id, data);

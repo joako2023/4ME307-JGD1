@@ -7,7 +7,7 @@ import { Pacientes } from '@app/dominio/entities/pacientes.entity';
 
 export class NutriologoDto extends Nutriologo {
   @ApiProperty()
-  public identificacion: number;
+  public identificacion: string;
 
   @ApiProperty()
   public nombre: string;
