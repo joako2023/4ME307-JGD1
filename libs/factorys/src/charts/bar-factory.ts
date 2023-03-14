@@ -19,10 +19,11 @@ export class barFactory extends chartAbstractFactory{
         created_at:Between(fechaFrom,fechaTo)
       }})
        const dataRepo=repo.map(r=>(r[metricaNombre]))
-       
+       console.log(dataRepo)
        const labelRepo=repo.map(r=>{
         const formatedFecha= new Date(r['created_at'])
         const formattedDate = new Intl.DateTimeFormat('es-ES', options).format(formatedFecha);
+        console.log(formatedFecha)
         return formattedDate
        } )
          //return repo

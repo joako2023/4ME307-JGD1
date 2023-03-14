@@ -9,9 +9,13 @@ export class MetricasController {
 
     }
     @Get()
-    GetMetri(){
-        
+    GetMetri(@Query('year') year?:number){
+        if (year) {
+            return this.metricasService.GetMetricas(Number(year))
+        }else{
             return this.metricasService.GET()
+        }
+            
     }
        
 
