@@ -1,4 +1,4 @@
-import { dates } from 'apps/dates/src/entities/dates.entity';
+import { dates } from '@app/dominio/entities/dates.entity';
 import {
   Column,
   Entity,
@@ -6,6 +6,8 @@ import {
   JoinColumn,
   OneToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { isEntity } from './base/isEntity';
 import { calendario } from './calendario.entity';
@@ -14,11 +16,12 @@ import { Pacientes } from './pacientes.entity';
 import { Suscripciones } from './suscripciones.entity';
 import { User } from './user.entity';
 import { Calificacion } from './calificacion.entity';
+import { Diagnosticos } from './diagnostico.entity';
 
 @Entity()
 export class Nutriologo extends isEntity {
-  @Column()
-  public identificacion: number;
+  @Column({ unique: true, nullable: true })
+  public identificacion: string;
 
   @Column()
   public nombre: string;
@@ -70,13 +73,18 @@ export class Nutriologo extends isEntity {
   @OneToOne(() => Suscripciones, (suscripciones) => suscripciones.nutriologo)
   @JoinColumn()
   suscripciones?: Suscripciones;
-
-  @OneToMany(() => Pacientes, (t) => t.nutriologo)
-  pacientes?: Pacientes[];
   
   @OneToMany(() => dates, i => i.medico)
   citas: dates[];
 
   @OneToMany(() => Calificacion, (c) => c.nutriologo)
   calificaciones: number[];
+  
+  @OneToMany(() => Diagnosticos, i => i.nutriologo)
+  diagnosticos: Diagnosticos[];
+
+
+  @ManyToMany(() => Pacientes, i => i.nutriologos)
+  @JoinTable()
+  pacientes?: Pacientes[];
 }

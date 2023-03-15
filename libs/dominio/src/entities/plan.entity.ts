@@ -27,7 +27,7 @@ export class Plan extends isEntity {
   })
   suscripciones?: Suscripciones[];
 
-  @ManyToMany(() => Servicios, { nullable: true })
+  @ManyToMany(() => Servicios, {nullable: true})
   @JoinTable()
   servicios?: Servicios[];
 }
