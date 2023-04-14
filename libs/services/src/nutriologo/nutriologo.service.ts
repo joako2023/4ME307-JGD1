@@ -17,14 +17,14 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
   }
 
   async guardar(data: Nutriologo) {
-    try {
-      data.establecimiento = await this.establecimientoRepository.save(data.establecimiento);
-    } catch (error) {
-      await this.establecimientoRepository.update( {
-        nit_establecimiento: data.establecimiento.nit_establecimiento
-      } , data.establecimiento);
-      data.establecimiento = await this.establecimientoRepository.findOne({ where: { nit_establecimiento: data.establecimiento.nit_establecimiento }})
-    }
+    // try {
+    //   data.establecimiento = await this.establecimientoRepository.save(data.establecimiento);
+    // } catch (error) {
+    //   await this.establecimientoRepository.update( {
+    //     nit_establecimiento: data.establecimiento.nit_establecimiento
+    //   } , data.establecimiento);
+    //   data.establecimiento = await this.establecimientoRepository.findOne({ where: { nit_establecimiento: data.establecimiento.nit_establecimiento }})
+    // }
     return await this.repository.save(data);
   }
 
@@ -33,12 +33,7 @@ export class NutriologoService extends ServiceBase<Nutriologo> {
       relations,
       where: [
         { nombre_completo: Like('%' + query + '%') },
-        { establecimiento: {
-          ciudad: Like('%' + query + '%')
-        } },
-        { establecimiento: {
-          nombre: Like('%' + query + '%')
-        } },
+        
       ]
     });
   }

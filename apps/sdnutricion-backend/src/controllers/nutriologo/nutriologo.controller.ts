@@ -20,7 +20,7 @@ import { ApiBody } from '@nestjs/swagger';
 export class NutriologoController extends ControllerBase<NutriologoDto> {
   constructor(protected service: NutriologoService) {
     super(service, [
-      'establecimiento',
+      
       'suscripciones',
       'usuario',
       'calendario'
